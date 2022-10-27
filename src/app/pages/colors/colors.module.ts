@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ColorsRoutingModule } from './colors-routing.module';
 import { ColorsComponent } from './colors.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ColorsComponent } from './colors.component';
   ],
   imports: [
     CommonModule,
-    ColorsRoutingModule
+    ColorsRoutingModule,
+    FormsModule
   ]
 })
 export class ColorsModule { }

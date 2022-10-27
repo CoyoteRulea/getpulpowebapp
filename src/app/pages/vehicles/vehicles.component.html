@@ -1,1 +1,92 @@
-<p>vehicles works!</p>
+<div class="vehicles-container">
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="vehicles-header h-12  items-center flex justify-between  bg-yellow-300 w-100 p-5">
+      <span>Vehicles List</span>
+      <div class="items-end">
+        <button type="submit" class="text-white bg-yellow-200 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
+        <button type="button" (click)="clearForm()" class="text-white bg-yellow-200 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-blue-800">Clear</button>
+      </div> 
+    </div>
+    <div class="vehicles-search h-30 flex items-center bg-yellow-300 w-100 p-5">     
+      <div class="grid grid-rows-2 grid-flow-col lg:flex w-full justify-between">
+        <div class="mb-3">
+          <label for="vehicle_id" class="form-label inline-block mb-2 text-gray-700">Vehicle Id</label>
+          <input formControlName="vehicle_id"
+            type="text"
+            class="form-control block  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="vehicle_id"
+            placeholder="Vehicle Id"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="brand" class="form-label inline-block mb-2 text-gray-700">Brand</label>
+          <select formControlName="brand" placeholder="Brand" id="brand" name="brand" class="form-control block  pr-8 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+            <option value=""></option>
+            <option *ngFor="let brand of brandList" value="{{ brand.brand_code }}">{{ brand.brand }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="model" class="form-label inline-block mb-2 text-gray-700">Model</label>
+          <input formControlName="model"
+            type="text"
+            class="form-control block  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="model"
+            placeholder="Model"
+          />
+        </div>   
+        <div class="mb-3">
+          <label for="color" class="form-label inline-block mb-2 text-gray-700">Color</label>
+          <select formControlName="color" placeholder="color" id="color" name="color" class="form-control block w-30 pr-8 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+            <option value=""></option>
+            <option *ngFor="let color of colorList" value="{{ color.color_code }}">{{ color.color }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="status" class="form-label inline-block mb-2 text-gray-700">Status</label>
+          <select formControlName="status" id="status" name="status" class="form-control block w-20 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+            <option value=""></option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="assigned" class="form-label inline-block mb-2 text-gray-700">Assigned</label>
+          <select formControlName="assigned" id="assigned" name="assigned" class="form-control block w-20 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+            <option value=""></option>
+            <option value="true">True</option>
+              <option value="false">False</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="vehicles-list w-100 p-5">
+    
+    <div *ngIf="successMessage" class="error-message mt-10 mx-autow-1/3 pl-10 h-10 flex items-center bg-green-100">{{ successMessage }}</div>
+    <div class="grid overflow-hidden grid-cols-9 grid-rows-1 gap-2 h-8  items-center flex justify-between odd:bg-yellow-200 even:bg-slate-50" *ngFor="let vehicle of vehicles">
+      <div class="box col-start-1 col-end-3">{{ vehicle.vehicle_id }} </div>
+      <div class="box col-start-3 col-end-5">{{ getBrand(vehicle.brand) }} </div>
+      <div class="box">{{ vehicle.model }} </div>
+      <div class="box">{{ getColor(vehicle.color) }} </div>
+      <div class="box">{{ vehicle.status }}</div>
+      <div class="box">{{ vehicle.status }}</div>
+      <div class="box flex justify-end pr-1" attr.id="{{ vehicle._id }}" attr.vehicle="{{ vehicle.vehicle_id }}">
+        <button type="button" (click)="updateVehicle($event)" class="p-1 focus:outline-none focus:shadow-outline text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg ">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+          </svg>
+            
+        </button>     
+        <button type="button" (click)="confirmDelete($event)" class="p-1 ml-2 focus:outline-none focus:shadow-outline text-white bl-2 bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg">
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="error-message mt-10 mx-autow-1/3 pl-10 h-10 flex items-center bg-red-100">{{ errorMessage }}</div>
+  </div>
+  <div class="vehicles-footer h-12 items-center align-middle flex justify-between bg-yellow-300 w-100 p-5">
+    <button type="button" (click)="addVehicle()" class="items-end text-white bg-yellow-200 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-blue-800">Add New Vehicle</button>
+  </div>
+</div>

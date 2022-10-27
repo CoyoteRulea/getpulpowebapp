@@ -1,0 +1,8 @@
+<div class="container bg-gray-200 h-40 p-8">
+  <h1 md-dialog-title class="text-xl text-gray-700">Please confirm action</h1>
+  <div md-dialog-content class="text-gray-500 mb-4">Do you really want to delete <span class="text-red-500 font-bold">{{ confirmMessage }}</span>?</div>
+  <div md-dialog-actions class="flex justify-center items-center">
+    <button md-button class="bg-red-600 rounded w-14 h-8" (click)="confirmDialog()">Delete</button>
+    <button md-button class="bg-yellow-300 rounded w-14 h-8 ml-4" (click)="closeDialog()">Cancel</button>
+  </div>
+</div>

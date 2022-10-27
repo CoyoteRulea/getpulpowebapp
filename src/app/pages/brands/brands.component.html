@@ -1,1 +1,29 @@
-<p>brands works!</p>
+<div class="brand-container">
+  <div class="brand-header h-12 items-center flex justify-between bg-yellow-300 w-100 p-5">
+    <div class="brand-title pl-16 text-white text-lg">
+      <span>Brand List</span>
+    </div>
+    <div class="searchBox items-end ml-10">
+      <form #searchForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="relative text-gray-600 focus-within:text-gray-200">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+            <button type="submit" class="p-1 focus:outline-none focus:shadow-outline">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </button>
+            <button type="button" (click)="getBrandList()" class="p-1 focus:outline-none focus:shadow-outline">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+          </span>
+          <input maxlength="3" type="search" name="searchBox" [(ngModel)]="searchBox" class="py-2 text-sm text-white bg-yellow-200 rounded-md pl-20 focus:outline-none focus:bg-white focus:text-gray-900" placeholder="Search..." autocomplete="off">
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="brand-list w-100 p-5">
+    <div class="brand-item mx-autow-2/3 pl-10 h-10 flex items-center odd:bg-yellow-200 even:bg-slate-50" *ngFor="let brand of brands">
+      {{ brand.brand_code }} - {{ brand.brand }}
+    </div>
+    <div *ngIf="errorMessage" class="error-message mt-10 mx-autow-1/3 pl-10 h-10 flex items-center bg-red-100">{{ errorMessage }}</div>
+  </div>
+  <div class="brand-footer h-12 items-center align-middle flex justify-between bg-yellow-300 w-100 p-5"></div>
+</div>
