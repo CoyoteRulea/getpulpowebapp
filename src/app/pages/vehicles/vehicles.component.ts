@@ -10,6 +10,7 @@ import { VehiclesService } from './service/vehicles.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/global/components/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
+import { GlobalLoggedUser } from 'src/app/global/service/logged-user.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -33,7 +34,14 @@ export class VehiclesComponent implements OnInit {
     assigned:   new FormControl('')
   });
 
-  constructor(private vehiclesService: VehiclesService, private colorsService: ColorsService, private brandsService: BrandsService, private confirmDialog: MatDialog, private router: Router) {
+  constructor(
+        private vehiclesService: VehiclesService,
+        private colorsService: ColorsService,
+        private brandsService: BrandsService,
+        private confirmDialog: MatDialog, 
+        private router: Router,
+        private globalLoggedUser: GlobalLoggedUser) {
+
     colorsService.getColors()
     .pipe(
       tap(
@@ -55,6 +63,10 @@ export class VehiclesComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    // if (!this.globalLoggedUser.isLogged()) {
+    //   this.router.navigateByUrl("/users/login"); 
+    // }
+
     this.getVehiclesList();
   }
 

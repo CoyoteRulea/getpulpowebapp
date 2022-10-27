@@ -15,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UpdateComponent } from './pages/vehicles/update/update.component';
 import { AddComponent } from './pages/vehicles/add/add.component';
 import { SignupComponent } from './pages/users/signup/signup.component';
+import { LoginComponent } from './pages/users/login/login.component';
+import { GlobalLoggedUser } from './global/service/logged-user.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { SignupComponent } from './pages/users/signup/signup.component';
     UpdateComponent,
     AddComponent,
     SignupComponent,
+    LoginComponent,
     ConfirmDialogComponent
   ],
   imports: [
@@ -37,8 +40,8 @@ import { SignupComponent } from './pages/users/signup/signup.component';
     BrowserAnimationsModule,
     MatButtonModule
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [ GlobalLoggedUser ],
+  bootstrap: [ AppComponent ],
   entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule { }

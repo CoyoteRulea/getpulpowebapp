@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/internal/operators/tap';
+import { GlobalLoggedUser } from 'src/app/global/service/logged-user.service';
 import { UserResponse } from '../interfaces/users.interface';
 import { UsersService } from '../service/users.service';
 
@@ -13,7 +14,7 @@ export class LogoutComponent implements OnInit {
   errorMessage!: string;
   successMessage!: string;
 
-  constructor(private usersService: UsersService, private router: Router) { 
+  constructor(private usersService: UsersService, private router: Router, private globalLoggedUser: GlobalLoggedUser) { 
     this.usersService.getLogOut()
       .pipe(
         tap(
@@ -26,8 +27,10 @@ export class LogoutComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-        if (this.successMessage)
-          setTimeout(() => { this.router.navigateByUrl("/users"); }, 2000);
+          if (this.successMessage) {            
+            this.globalLoggedUser.logOut();
+            setTimeout(() => { this.router.navigateByUrl("/users/login").then(() => { this.router.navigate(['HeaderComponent']) }); }, 2000);
+          }
         }
       )
   }
