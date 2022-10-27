@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UpdateComponent } from './pages/vehicles/update/update.component';
 import { AddComponent } from './pages/vehicles/add/add.component';
+import { SignupComponent } from './pages/users/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AddComponent } from './pages/vehicles/add/add.component';
     VehiclesComponent,
     UpdateComponent,
     AddComponent,
+    SignupComponent,
     ConfirmDialogComponent
   ],
   imports: [

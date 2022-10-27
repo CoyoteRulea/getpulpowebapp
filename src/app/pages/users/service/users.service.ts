@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { User } from '../interfaces/users.interface';
+import { User, UserResponse } from '../interfaces/users.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,23 +14,32 @@ export class UsersService {
     this.jsonRequests = JSON.parse(environment.usersRequests);
   }
 
-  postSignUp(user: User): Observable<User> {
+  postSignUp(signupFormValue: any): Observable<UserResponse> {
     let thisMethod = 'postSignUp';
-    return this.http.post<User>(environment.apiUrl + this.jsonRequests[thisMethod], user);
+    
+    let paramsRequest: HttpParams = new HttpParams()
+                                          .set('username', signupFormValue.username)
+                                          .set('password', signupFormValue.password);
+
+    return this.http.post<UserResponse>(environment.apiUrl + this.jsonRequests[thisMethod], paramsRequest);
   }
   
-  postLogin(user: User): Observable<User> {
+  postLogin(loginFormValue: any): Observable<UserResponse> {
     let thisMethod = 'postLogin';
-    return this.http.post<User>(environment.apiUrl + this.jsonRequests[thisMethod], { username: user.username, password: user.password });
+
+    let paramsRequest: HttpParams = new HttpParams()
+                                          .set('username', loginFormValue.username)
+                                          .set('password', loginFormValue.password);
+    return this.http.post<UserResponse>(environment.apiUrl + this.jsonRequests[thisMethod], paramsRequest);
   }
   
-  getLogOut(): Observable<User> {
+  getLogOut(): Observable<UserResponse> {
     let thisMethod = 'getLogOut';
-    return this.http.get<any>(environment.apiUrl + this.jsonRequests[thisMethod]);
+    return this.http.get<UserResponse>(environment.apiUrl + this.jsonRequests[thisMethod]);
   }
   
-  getProtected(): any {
+  getProtected(): Observable<UserResponse> {
     let thisMethod = 'getProtected';
-    return this.http.get<any>(environment.apiUrl + this.jsonRequests[thisMethod]);
+    return this.http.get<UserResponse>(environment.apiUrl + this.jsonRequests[thisMethod]);
   }
 }
