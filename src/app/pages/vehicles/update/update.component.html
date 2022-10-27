@@ -1,0 +1,66 @@
+<div class="container">
+  <div *ngIf="successMessage" class="error-message mt-10 mx-autow-1/3 pl-10 h-10 flex items-center bg-green-100">{{ successMessage }}</div>
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div class="vehicles-search h-30 flex items-center bg-yellow-300 w-100 p-5">  
+      <div class="grid grid-rows-2 grid-flow-col lg:flex w-full justify-between">
+        <div class="mb-3">
+          <input type="hidden" formControlName="_id" id="_id" name="_id" />
+          <label for="vehicle_id" class="form-label inline-block mb-2 text-gray-700">Vehicle Id</label>
+          <input formControlName="vehicle_id"
+            type="text"
+            class="form-control block  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="vehicle_id"
+            placeholder="Vehicle Id"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="brand" class="form-label inline-block mb-2 text-gray-700">Brand</label>
+          <select formControlName="brand" placeholder="Brand" id="brand" name="brand" class="form-control block  pr-8 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+            <option value=""></option>
+            <option *ngFor="let brand of brandList" value="{{ brand.brand_code }}">{{ brand.brand }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="model" class="form-label inline-block mb-2 text-gray-700">Model</label>
+          <input formControlName="model"
+            type="text"
+            class="form-control block  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="model"
+            placeholder="Model"
+          />
+        </div>   
+        <div class="mb-3">
+          <label for="color" class="form-label inline-block mb-2 text-gray-700">Color</label>
+          <select formControlName="color" placeholder="color" id="color" name="color" class="form-control block w-30 pr-8 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+            <option value=""></option>
+            <option *ngFor="let color of colorList" value="{{ color.color_code }}">{{ color.color }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="status" class="form-label inline-block mb-2 text-gray-700">Status</label>
+          <select formControlName="status" id="status" name="status" class="form-control block w-20 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+            <option value=""></option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="assigned" class="form-label inline-block mb-2 text-gray-700">Assigned</label>
+          <select formControlName="assigned" id="assigned" name="assigned" class="form-control block w-20 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+            <option value=""></option>
+            <option value="true">True</option>
+              <option value="false">False</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="vehicles-footer h-12  items-center flex justify-between  bg-yellow-300 w-100 p-5">
+      <span class="font-xl text-red-500 font-bold">Update Vehicle</span>
+      <div class="items-center">
+        <button type="button" (click)="goBack()" class="text-white bg-yellow-200 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-blue-800">Back to List</button>
+        <button type="submit" class="text-white bg-yellow-200 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-blue-800">Update</button>
+      </div> 
+    </div>
+  </form>
+  <div *ngIf="errorMessage" class="error-message mt-10 mx-autow-1/3 pl-10 h-10 flex items-center bg-red-100">{{ errorMessage }}</div>
+</div>

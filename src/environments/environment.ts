@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://localhost:3000/api/',
+  colorsRequests:   '{ "getColors": "colors/getcolors/", "postColorByCode": "colors/colorbycode/" }',
+  brandsRequests:   '{ "getBrands": "brands/getbrands/", "postBrandByCode": "brands/brandbycode/" }',
+  usersRequests:    '{ "postSignUp": "users/signup", "postLogin": "users/login", "getLogOut": "users/logout", "getProtected": "users/protected" }',
+  vehiclesRequests: '{ "postAddVehicle": "vehicles/addvehicle", "postDeleteVehicle": "vehicles/deletevehicle", "postUpdateVehicle": "vehicles/updatevehicle", "postFindByFields": "vehicles/findbyfields" }'
 };
 
 /*
