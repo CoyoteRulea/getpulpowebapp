@@ -6,26 +6,33 @@ import { User, UserResponse } from 'src/app/pages/users/interfaces/users.interfa
 @Injectable({
   providedIn: 'root'
 })
-export class LoggedUserService {
-  user!: User;
+@Injectable()
+export class GlobalLoggedUser {
+  private user!: User;
   
 
   private errorResponse!: HttpErrorResponse;
-  private userSubject = new Subject<User>;
-
-  get userAction$(): Observable<User> {
-    return this.userSubject.asObservable();
-  }
 
   private unsetUser(): void {
+    this.user._id = '';
     this.user.username = '';
     this.user.password = '';
+  }
 
-    this.userSubject.next(this.user);
+  public logOut() {
+    this.unsetUser();
+  }
+
+  public isLogged(): boolean {
+    return this.user !== undefined && this.user.username !== '';
+  }
+
+  public getUserName() {
+    return this.user !== undefined ? this.user.username : '';
   }
 
   private setUser(user: User): void {
-    this.userSubject.next(user);
+    this.user = user;
   }
 
   setUserFromResponse(userResponse: UserResponse): void {

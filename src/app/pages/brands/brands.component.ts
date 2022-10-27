@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { GlobalLoggedUser } from 'src/app/global/service/logged-user.service';
 import { Brand } from './interfaces/brands.interface';
 import { BrandsService } from './service/brands.service';
 
@@ -13,9 +15,13 @@ export class BrandsComponent implements OnInit {
   searchBox!: string;
   errorMessage!: string;
 
-  constructor(private brandService: BrandsService) { }
+  constructor(private brandService: BrandsService, private router: Router, private globalLoggedUser: GlobalLoggedUser) { }
 
   ngOnInit(): void {
+    // if (!this.globalLoggedUser.isLogged()) {
+    //   this.router.navigateByUrl("/users/login"); 
+    // }
+    
     this.getBrandList();
   }
 

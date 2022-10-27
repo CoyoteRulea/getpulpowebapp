@@ -8,6 +8,7 @@ import { BrandsService } from '../../brands/service/brands.service';
 import { ColorsService } from '../../colors/service/colors.service';
 import { Color } from '../../colors/interfaces/colors.interface';
 import { Brand } from '../../brands/interfaces/brands.interface';
+import { GlobalLoggedUser } from 'src/app/global/service/logged-user.service';
 
 @Component({
   selector: 'app-update',
@@ -33,7 +34,13 @@ export class UpdateComponent implements OnInit {
     assigned:   new FormControl('')
   });
 
-  constructor(private vehiclesService: VehiclesService, private router: Router, private colorsService: ColorsService, private brandsService: BrandsService) {
+  constructor(
+        private vehiclesService: VehiclesService,
+        private router: Router,
+        private colorsService: ColorsService,
+        private brandsService: BrandsService,
+        private globalLoggedUser: GlobalLoggedUser) {
+          
     colorsService.getColors()
       .pipe(
         tap(
@@ -54,6 +61,9 @@ export class UpdateComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    // if (!this.globalLoggedUser.isLogged()) {
+    //   this.router.navigateByUrl("/users/login"); 
+    // }
     // Check id from call if currently isn's assigned on form
     this.id = history.state.id;
       

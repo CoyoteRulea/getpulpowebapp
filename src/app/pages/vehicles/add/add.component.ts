@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/internal/operators/tap';
+import { GlobalLoggedUser } from 'src/app/global/service/logged-user.service';
 import { Brand } from '../../brands/interfaces/brands.interface';
 import { BrandsService } from '../../brands/service/brands.service';
 import { Color } from '../../colors/interfaces/colors.interface';
@@ -33,7 +34,13 @@ export class AddComponent implements OnInit {
     assigned:   new FormControl('')
   });
 
-  constructor(private vehiclesService: VehiclesService, private router: Router, private colorsService: ColorsService, private brandsService: BrandsService) {
+  constructor(
+      private vehiclesService: VehiclesService,
+      private router: Router,
+      private colorsService: ColorsService,
+      private brandsService: BrandsService,
+      private globalLoggedUser: GlobalLoggedUser) {
+        
     colorsService.getColors()
     .pipe(
       tap(
@@ -53,7 +60,10 @@ export class AddComponent implements OnInit {
     .subscribe();
    }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
+    //  if (!this.globalLoggedUser.isLogged()) {
+    //    this.router.navigateByUrl("/users/login"); 
+    //  }
   }
 
   goBack() {

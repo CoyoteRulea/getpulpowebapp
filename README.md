@@ -14,14 +14,26 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## GetPulpo WebApp
+### Run NestJS server
 
-## Running end-to-end tests
+In order to test this web app please run the following steps (make sure you hace Node and NPM installed)
+```
+git clone https://github.com/CoyoteRulea/getpulpo.git
+cd getpulpo
+git checkout develop
+npm run start:dev
+```
+Develop removes AuthGuard requirement on each request. I'm using session authorization for that API, and is working with POSTMAN (for example) where you need to call login before all methods are authorized to response. But seems like Angular (and others frontend frameworks) are not allowed to use connect.sid cookie and was imposible to add that in the request (not allowed because risky call).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+To run this Front End App run 
+```
+ng serve
+```
 
-## Further help
+Main page call Login page, i just planned to use GlobalLoggedUser "global properties" to grant  in all site, but unfortunaly this value is deleted when refresh. Maybe i'm just need to save this in a cookie, but time goes so fast.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+BTW,rest of pages are working without "authorization".
+
+Finally, I also tried to add Jest Tunit test, but how you could find in the file \getpulpo\src\model\vehicles\vehicles.service.spec.ts i'm getting some errors trying to call that service.
